@@ -4,6 +4,8 @@ import com.sunda.miaosha.dao.OrderDao;
 import com.sunda.miaosha.domain.MiaoshaOrder;
 import com.sunda.miaosha.domain.MiaoshaUser;
 import com.sunda.miaosha.domain.OrderInfo;
+import com.sunda.miaosha.redis.OrderKey;
+import com.sunda.miaosha.redis.RedisService;
 import com.sunda.miaosha.vo.GoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +22,15 @@ public class OrderService {
     @Autowired
     OrderDao orderDao;
 
+    @Autowired
+    RedisService redisService;
+
     public MiaoshaOrder getMiaoshaOrderByUserIdGoodsId(long userId, long goodsId) {
         return orderDao.getMiaoshaOrderByUserIdGoodsId(userId, goodsId);
+    }
+
+    public OrderInfo getOrderById(long orderId) {
+        return orderDao.getOrderById(orderId);
     }
 
     @Transactional
@@ -42,6 +51,8 @@ public class OrderService {
         miaoshaOrder.setOrderId(orderId);
         miaoshaOrder.setUserId(user.getId());
         orderDao.insertMiaoshaOrder(miaoshaOrder);
+        redisService.set(OrderKey.getMiaoshaOrderByUidGid, ""+user.getId()+"_"+goods.getId(), miaoshaOrder);
+
         return orderInfo;
     }
 }

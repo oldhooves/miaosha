@@ -7,7 +7,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   redis:
     port: 6379
-    host: 192.168.1.101
+    host: 192.168.1.102
     timeout: 10
     jedis:
       pool:
@@ -34,6 +34,8 @@ spring:
 #          max-interval: 10000
   thymeleaf:
     cache: false
+  resources:
+    static-locations: classpath:/static/
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
