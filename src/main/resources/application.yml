@@ -13,25 +13,25 @@ spring:
       pool:
         max-idle: 500
         max-wait: 500
-#  rabbitmq:
-#    host: localhost
-#    port: 5672
-#    username: guest
-#    password: guest
-#    virtual-host: /
-#    listener:
-#      simple:
-#        concurrency: 10  #消费者数量
-#        max-concurrency: 10
-#        prefetch: 1
-#        auto-startup: true
-#        default-requeue-rejected: true
-#        retry:
-#          enabled: true
-#          max-attempts: 3
-#          multiplier: 1.0
-#          initial-interval: 1000
-#          max-interval: 10000
+  rabbitmq:
+    host: 192.168.1.102
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /
+    listener:
+      simple:
+        concurrency: 10  #消费者数量
+        max-concurrency: 10
+        prefetch: 1
+        auto-startup: true
+        default-requeue-rejected: true
+        retry:
+          enabled: true
+          max-attempts: 3
+          multiplier: 1.0
+          initial-interval: 1000
+          max-interval: 10000
   thymeleaf:
     cache: false
   resources:
